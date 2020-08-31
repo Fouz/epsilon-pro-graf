@@ -21,7 +21,7 @@ spec:
       stage("build") {
           steps {
               container('epsilon-pro-grafa') {
-                  sh '. epsilon-pro-grafa.sh'
+                  sh '. pro-grafa.sh'
               }
           }
       }
