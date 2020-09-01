@@ -11,7 +11,7 @@ spec:
     image: alpine/helm
     ports:
     - port: 443
-    - targetPort: 443
+    targetPort: 443
     command: 
     - cat
     tty: true
