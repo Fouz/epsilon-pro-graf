@@ -12,6 +12,4 @@ spec:
       - path: /grafana
         backend:
           serviceName: prometheus-operator-grafana
-          ports:
-            - port: 443
-            - targetPort: 443
+          servicePort: 80
