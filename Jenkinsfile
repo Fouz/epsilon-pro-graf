@@ -40,9 +40,8 @@ stages {
 
     stage('deploy:helm') {
             steps {
-                container('helm') {
-                  sh '''
-		   
+                container('kubectl') {
+                   sh '''
                     helm repo add stable https://kubernetes-charts.storage.googleapis.com
 		    helm repo update
 		    kubectl delete  validatingwebhookconfigurations.admissionregistration.k8s.io prometheus-prometheus-oper-admission
