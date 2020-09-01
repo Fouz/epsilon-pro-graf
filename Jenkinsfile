@@ -9,6 +9,7 @@ spec:
   containers:
   - name: helm
     image: alpine/helm
+    port: 443
     command: 
     - cat
     tty: true
