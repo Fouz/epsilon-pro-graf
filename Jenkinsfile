@@ -43,13 +43,8 @@ stages {
                    sh '''
                      
                      helm repo add stable https://kubernetes-charts.storage.googleapis.com
-                     helm repo update
-                    
-                     helm install prometheus-operator stable/prometheus-operator
-                     --set grafana.service.type=LoadBalancer
-                     --set prometheusOperator.admissionWebhooks.enabled=false
-                     --set prometheusOperator.admissionWebhooks.patch.enabled=false
-                     --set prometheusOperator.tlsProxy.enabled=false
+                      helm repo update
+                      helm install prometheus-operator stable/prometheus-operator --namespace monitor --set service.type=LoadBalancer
                    '''
                           
           }
