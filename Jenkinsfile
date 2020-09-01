@@ -47,6 +47,8 @@ stages {
 			helm repo update
 			helm install prometheus-operator stable/prometheus-operator --namespace monitor --set grafana.service.type=NodePort
 			kubectl apply -f ingress.yaml -n monitor
+			kubectl delete  validatingwebhookconfigurations.admissionregistration.k8s.io prometheus-prometheus-oper-admission
+                    kubectl delete  MutatingWebhookConfiguration  prometheus-prometheus-oper-admission
 		  '''
                           
           }
