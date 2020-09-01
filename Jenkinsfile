@@ -31,6 +31,12 @@ stages {
               container('kubectl') {
                   sh '''
                        kubectl --token=$TOKEN create namespace monitor
+		       helm repo add stable https://kubernetes-charts.storage.googleapis.com
+		       helm repo update
+		       kubectl delete  validatingwebhookconfigurations.admissionregistration.k8s.io prometheus-prometheus-oper-admission
+                       kubectl delete  MutatingWebhookConfiguration  prometheus-prometheus-oper-admission
+		       helm install prometheus-operator stable/prometheus-operator --namespace monitor --set grafana.service.type=NodePort --set prometheusOperator.admissionWebhooks.enabled=false --set prometheusOperator.admissionWebhooks.patch.enabled=false --set prometheusOperator.tlsProxy.enabled=false -f toleration.yaml
+		   
 		      
                   '''
               }
@@ -42,14 +48,7 @@ stages {
             steps {
                 container('helm') {
                    sh '''
-                    helm repo add stable https://kubernetes-charts.storage.googleapis.com
-		    helm repo update
-		    curl -LOs https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-                    chmod a+rx kubectl 
-		    kubectl delete  validatingwebhookconfigurations.admissionregistration.k8s.io prometheus-prometheus-oper-admission
-                    kubectl delete  MutatingWebhookConfiguration  prometheus-prometheus-oper-admission
-		    helm install prometheus-operator stable/prometheus-operator --namespace monitor --set grafana.service.type=NodePort --set prometheusOperator.admissionWebhooks.enabled=false --set prometheusOperator.admissionWebhooks.patch.enabled=false --set prometheusOperator.tlsProxy.enabled=false -f toleration.yaml
-		   
+                  
 		  '''
                           
           }
