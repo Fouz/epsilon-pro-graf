@@ -1,4 +1,0 @@
-tolerations:
-- key: "key"
-  operator: "Exists"
-  effect: "NoExecute"
