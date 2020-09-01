@@ -17,6 +17,21 @@ spec:
 """
     }
   }
+	environment {
+    TOKEN=credentials('bc33a7c7-818f-47d0-9140-94822190010c')
+  }
+stages { 
+    stage('deploy:kubectl') {
+          steps {
+              container('kubectl') {
+                  sh '''
+                       kubectl --token=$TOKEN create namespace monitor    
+		      
+                  '''
+              }
+          }
+      }
+	
   stages {
       stage("build") {
           steps {
