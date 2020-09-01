@@ -5,54 +5,26 @@ pipeline {
 apiVersion: v1
 kind: Pod
 metadata:
+  labels:
+    some-label: some-label-value
 spec:
   containers:
-  - name: helm
-    image: alpine/helm
+  - name: pro-grafa
+    image: bryandollery/terraform-packer-aws-alpine 
     command: 
-    - cat
-    tty: true
-  - name: kubectl
-    image: bryandollery/terraform-packer-aws-alpine
-    command:
-    - cat
+    - bash
     tty: true
 """
     }
-  }   
-
-environment {
-    TOKEN=credentials('bc33a7c7-818f-47d0-9140-94822190010c')
   }
-
-stages { 
-    stage('deploy:kubectl') {
+  stages {
+      stage("build") {
           steps {
-              container('kubectl') {
-                  sh '''
-                       kubectl --token=$TOKEN create namespace monitor
-		      
-		      
-                  '''
+              container('pro-grafa') {
+                  sh '. pro-graf.sh'
               }
           }
       }
+  }
 
-
-    stage('deploy:helm') {
-            steps {
-                container('kubectl') {
-                   sh '''
-		    helm repo add stable https://kubernetes-charts.storage.googleapis.com
-			helm repo update
-			helm install prometheus-operator stable/prometheus-operator --namespace monitor --set grafana.service.type=NodePort
-			kubectl apply -f ingress.yaml -n monitor
-			kubectl delete  validatingwebhookconfigurations.admissionregistration.k8s.io prometheus-prometheus-oper-admission
-                    kubectl delete  MutatingWebhookConfiguration  prometheus-prometheus-oper-admission
-		  '''
-                          
-          }
-      }
-   }
- }
 }
