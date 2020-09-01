@@ -47,6 +47,9 @@ stages {
                       helm install prometheus-operator stable/prometheus-operator --namespace=monitor
                       prometheusOperator.admissionWebhooks.enabled=false
                       helm install prometheus-operator stable/prometheus-operator --namespace monitor --set prometheusOperator.service.type=LoadBalancer
+                      prometheusOperator.admissionWebhooks.enabled=false
+                      prometheusOperator.admissionWebhooks.patch.enabled=false
+                      prometheusOperator.tlsProxy.enabled=false
 
                    '''
                           
