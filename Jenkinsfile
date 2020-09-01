@@ -44,10 +44,8 @@ stages {
                      
                      helm repo add stable https://kubernetes-charts.storage.googleapis.com
                       helm repo update
-                      helm install prometheus-operator stable/prometheus-operator --namespace monitor
-                      prometheusOperator.admissionWebhooks.enabled=false
-                      prometheusOperator.admissionWebhooks.patch.enabled=false
-                      prometheusOperator.tlsProxy.enabled=false
+                      kubectl create namespace monitor
+                      helm install prometheus-operator stable/prometheus-operator --namespace monitor --set prometheusOperator.service.type=LoadBalancer
                    '''
                           
           }
