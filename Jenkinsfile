@@ -44,10 +44,10 @@ stages {
                      
                      helm repo add stable https://kubernetes-charts.storage.googleapis.com
                       helm repo update
-                      --set prometheusOperator.admissionWebhooks.enabled=false
-                      --set prometheusOperator.admissionWebhooks.patch.enabled=false
-                      --set prometheusOperator.tlsProxy.enabled=false
                       helm install prometheus-operator stable/prometheus-operator --namespace monitor --set service.type=NodePort
+                      prometheusOperator.admissionWebhooks.enabled=false
+                      prometheusOperator.admissionWebhooks.patch.enabled=false
+                      prometheusOperator.tlsProxy.enabled=false
                    '''
                           
           }
