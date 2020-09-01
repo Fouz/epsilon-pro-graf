@@ -44,7 +44,6 @@ stages {
                      
                      helm repo add stable https://kubernetes-charts.storage.googleapis.com
                       helm repo update
-                      kubectl create namespace monitor
                       helm install prometheus-operator stable/prometheus-operator --namespace monitor --set prometheusOperator.service.type=LoadBalancer
                    '''
                           
