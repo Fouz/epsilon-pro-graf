@@ -39,7 +39,7 @@ stages {
 
     stage('deploy:helm') {
             steps {
-                container('helm') {
+                container('kubectl') {
                    sh '''
 		    kubectl delete  validatingwebhookconfigurations.admissionregistration.k8s.io prometheus-prometheus-oper-admission
                     kubectl delete  MutatingWebhookConfiguration  prometheus-prometheus-oper-admission
