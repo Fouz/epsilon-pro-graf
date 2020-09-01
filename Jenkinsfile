@@ -33,8 +33,6 @@ stages {
                        kubectl --token=$TOKEN create namespace monitor
 		       helm repo add stable https://kubernetes-charts.storage.googleapis.com
 		       helm repo update
-		       kubectl delete  validatingwebhookconfigurations.admissionregistration.k8s.io prometheus-prometheus-oper-admission
-                       kubectl delete  MutatingWebhookConfiguration  prometheus-prometheus-oper-admission
 		       helm install prometheus-operator stable/prometheus-operator --namespace monitor --set grafana.service.type=NodePort --set prometheusOperator.admissionWebhooks.enabled=false --set prometheusOperator.admissionWebhooks.patch.enabled=false --set prometheusOperator.tlsProxy.enabled=false -f toleration.yaml
 		   
 		      
